@@ -27,10 +27,28 @@ function renderKoalas(data){
         <td>${koala.ready_to_transfer}</td>
         <td>${koala.notes}</td>
         <td>${!koala.ready_to_transfer ? '<button onclick="markReady(event)">Ready to Transfer</button>' : ''}</td>
+        <td><button onclick="deleteKoala(event)">Delete</button></td>
 
   </tr>
     `
   }
+}
+
+function deleteKoala(event){
+    let clickedButton = event.target;
+    let theTableRow = clickedButton.closest('tr');
+    let koalaID = theTableRow.getAttribute('data-koalaid');
+    console.log('Koala ID', koalaID)
+
+    axios({
+      method: 'DELETE',
+      url: `/koalas/${koalaID}`
+    }).then((response) => {
+      getKoalas();
+    }).catch((error) => {
+      console.log('DELETE /koalas/:id fail', error)
+    })
+
 }
 
 function markReady(event){

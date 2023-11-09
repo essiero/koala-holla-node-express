@@ -9,7 +9,8 @@ let pool = new pg.Pool({
     database: 'koala_holla'
 })
 
-pool.on('connect', () => {
+pool
+.on('connect', () => {
     console.log('Database connected')
 });
 
@@ -19,7 +20,8 @@ koalaRouter.get('/', (req, res) => {
     SELECT * FROM "koalas"
         ORDER BY "id"
     `
-    pool.query(queryText).then(result => {
+    pool
+    .query(queryText).then(result => {
         res.send(result.rows);
     })
     .catch(error => {
@@ -58,7 +60,8 @@ koalaRouter.put('/:id', (req, res) => {
     `
     const sqlValues = [idOfKoala]
 
-    pool.query(sqlText, sqlValues)
+    pool
+    .query(sqlText, sqlValues)
     .then((dbResult) => {
         res.sendStatus(200)
     })
@@ -69,5 +72,24 @@ koalaRouter.put('/:id', (req, res) => {
 })
 
 // DELETE
+koalaRouter.delete('/:id', (req, res) => {
+    let idOfKoala = req.params.id;
+    const sqlText = `
+    DELETE from "koalas"
+        WHERE "id" = $1;
+        `
+    const sqlValues = [idOfKoala];
+
+    pool
+        .query(sqlText, sqlValues)
+        .then((dbResult) => {
+            res.sendStatus(200)
+        })
+        .catch((dbError) => {
+            console.log('DELETE /koalas/:id failed', dbError);
+            res.sendStatus(500)
+        })
+})
+
 
 module.exports = koalaRouter;
