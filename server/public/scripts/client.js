@@ -38,13 +38,21 @@ function saveKoala(event){
   koala.name = document.getElementById('nameIn').value;
   koala.age = document.getElementById('ageIn').value;
   koala.gender = document.getElementById('genderIn').value;
-  koala.ready_to_transfer = document.getElementById('readyForTransferIn').value;
+  koala.ready_to_transfer = document.getElementById('readyForTransferIn').checked;
   koala.notes = document.getElementById('notesIn').value;
   console.log('New Koala: ', koala)
+
   // axios call to server to get koalas
-//  axios({
-//   method: 'POST'
-//  })
+ axios({
+  method: 'POST',
+  url: '/koalas',
+  data: koala,
+ }).then(response => {
+  getKoalas();
+ }).catch(error => {
+  console.log('Error in POST', error)
+  alert('Unable to add koala.');
+ })
 }
 
 getKoalas();
