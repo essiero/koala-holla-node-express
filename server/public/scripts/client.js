@@ -26,15 +26,13 @@ function renderKoalas(data){
         <td>${koala.gender}</td>
         <td>${koala.ready_to_transfer}</td>
         <td>${koala.notes}</td>
-        <td>${!koala.ready_to_transfer ? '<button onclick="markReady(event)">Ready to Transfer</button>' : ''}</td>
-        <td><button onclick="deleteKoala(event); alertMessage()">Delete</button></td>
+        <td><button onclick="markReady(event)">${koala.ready_to_transfer ? 'Not ready to transfer' : 'Ready to transfer'}</button></td>
+        <td><button onclick="deleteKoala(event)">Delete</button></td>
 
   </tr>
     `
   }
 }
-
-
 
 function deleteKoala(event){
   Swal.fire({
