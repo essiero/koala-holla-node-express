@@ -20,15 +20,31 @@ function renderKoalas(data){
 
   for(let koala of data){
     koalaTable.innerHTML += /*html*/`
-      <tr>
+      <tr data-koalaid="${koala.id}">
         <td>${koala.name}</td>
         <td>${koala.age}</td>
         <td>${koala.gender}</td>
         <td>${koala.ready_to_transfer}</td>
         <td>${koala.notes}</td>
+        <td>${!koala.ready_to_transfer ? '<button onclick="markReady(event)">Ready to Transfer</button>' : ''}</td>
+
   </tr>
     `
   }
+}
+
+function markReady(event){
+  let clickedButton = event.target;
+  let theTableRow = clickedButton.closest('tr');
+  let koalaID = theTableRow.getAttribute('data-koalaid');
+  axios({
+    method: 'PUT',
+    url: `/koalas/${koalaID}`
+  }).then((response) => {
+    getKoalas();
+  }).catch((error) => {
+    console.log('PUT /koalas/:id fail', error)
+  })
 }
 
 function saveKoala(event){
