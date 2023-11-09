@@ -31,10 +31,20 @@ function renderKoalas(data){
   }
 }
 
-function saveKoala(){
+function saveKoala(event){
+  event.preventDefault();
   console.log( 'in saveKoala' );
+  let koala = {};
+  koala.name = document.getElementById('nameIn').value;
+  koala.age = document.getElementById('ageIn').value;
+  koala.gender = document.getElementById('genderIn').value;
+  koala.ready_to_transfer = document.getElementById('readyForTransferIn').value;
+  koala.notes = document.getElementById('notesIn').value;
+  console.log('New Koala: ', koala)
   // axios call to server to get koalas
- 
+//  axios({
+//   method: 'POST'
+//  })
 }
 
 getKoalas();
