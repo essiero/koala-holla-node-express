@@ -27,27 +27,47 @@ function renderKoalas(data){
         <td>${koala.ready_to_transfer}</td>
         <td>${koala.notes}</td>
         <td>${!koala.ready_to_transfer ? '<button onclick="markReady(event)">Ready to Transfer</button>' : ''}</td>
-        <td><button onclick="deleteKoala(event)">Delete</button></td>
+        <td><button onclick="deleteKoala(event); alertMessage()">Delete</button></td>
 
   </tr>
     `
   }
 }
 
-function deleteKoala(event){
-    let clickedButton = event.target;
-    let theTableRow = clickedButton.closest('tr');
-    let koalaID = theTableRow.getAttribute('data-koalaid');
-    console.log('Koala ID', koalaID)
 
-    axios({
-      method: 'DELETE',
-      url: `/koalas/${koalaID}`
-    }).then((response) => {
-      getKoalas();
-    }).catch((error) => {
-      console.log('DELETE /koalas/:id fail', error)
-    })
+
+function deleteKoala(event){
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      let clickedButton = event.target;
+      let theTableRow = clickedButton.closest('tr');
+      let koalaID = theTableRow.getAttribute('data-koalaid');
+      console.log('Koala ID', koalaID)
+  
+      axios({
+        method: 'DELETE',
+        url: `/koalas/${koalaID}`
+      }).then((response) => {
+        getKoalas();
+      }).catch((error) => {
+        console.log('DELETE /koalas/:id fail', error)
+      })
+
+      Swal.fire({
+        title: "Deleted!",
+        text: "Your file has been deleted.",
+        icon: "success"
+      });
+    }
+  })
 
 }
 
