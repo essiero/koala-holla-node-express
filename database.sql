@@ -1,5 +1,6 @@
 CREATE TABLE "koalas" (
 	"id" SERIAL PRIMARY KEY,
+    "image_path" TEXT,
 	"name" VARCHAR(100) NOT NULL,
 	"gender" VARCHAR(20),
 	"age" INTEGER,
@@ -7,12 +8,12 @@ CREATE TABLE "koalas" (
 	"notes" VARCHAR(250)
 	);
 	
-INSERT INTO "koalas" ("name", "gender", "age", "ready_to_transfer", "notes")
+INSERT INTO "koalas" ("image_path", "name", "gender", "age", "ready_to_transfer", "notes")
 	VALUES
-	('Scotty', 'M', 4, TRUE, 'Born in Guatemala'),
-	('Jean', 'F', 5, TRUE, 'Allergic to lots of lava'),
-	('Ororo', 'F', 7, FALSE, 'Loves listening to Paula (Abdul)'),
-	(E'K\'leaf', 'NB', 15, FALSE, 'Never refuses a treat'),
-	('Charlie', 'M', 9, TRUE, 'Favorite band is Nirvana'),
-	('Betsy', 'F', 4, TRUE, 'Has a pet iguana');
+	('/images/scotty.jpeg', 'Scotty', 'M', 4, TRUE, 'Born in Guatemala'),
+	('/images/jean.jpeg', 'Jean', 'F', 5, TRUE, 'Allergic to lots of lava'),
+	('/images/ororo.jpg', 'Ororo', 'F', 7, FALSE, 'Loves listening to Paula (Abdul)'),
+	('/images/kleaf.webp', E'K\'leaf', 'NB', 15, FALSE, 'Never refuses a treat'),
+	('/images/charlie.jpeg', 'Charlie', 'M', 9, TRUE, 'Favorite band is Nirvana'),
+	('/images/betsy.webp', 'Betsy', 'F', 4, TRUE, 'Has a pet iguana');
 	

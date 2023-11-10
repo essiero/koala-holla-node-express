@@ -21,12 +21,13 @@ function renderKoalas(data){
   for(let koala of data){
     koalaTable.innerHTML += /*html*/`
       <tr data-koalaid="${koala.id}">
+      <td><img src=${koala.image_path} class="koala"></td>
         <td>${koala.name}</td>
         <td>${koala.age}</td>
         <td>${koala.gender}</td>
         <td>${koala.ready_to_transfer}</td>
         <td>${koala.notes}</td>
-        <td><button onclick="markReady(event)">${koala.ready_to_transfer ? 'Not ready to transfer' : 'Ready to transfer'}</button></td>
+        <td><button onclick="markReady(event)">${koala.ready_to_transfer ? 'Mark not ready' : 'Ready to transfer'}</button></td>
         <td><button onclick="deleteKoala(event)">Delete</button></td>
 
   </tr>
